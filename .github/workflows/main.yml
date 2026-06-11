@@ -1,0 +1,43 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Download fonts
+        run: |
+          mkdir -p app/src/main/res/font
+          curl -fL "https://github.com/google/fonts/raw/refs/heads/main/ofl/rajdhani/Rajdhani-Bold.ttf" -o app/src/main/res/font/rajdhani_bold.ttf
+          curl -fL "https://github.com/google/fonts/raw/refs/heads/main/ofl/rajdhani/Rajdhani-SemiBold.ttf" -o app/src/main/res/font/rajdhani_semibold.ttf
+          curl -fL "https://github.com/google/fonts/raw/refs/heads/main/ofl/dmsans/DMSans%5Bopsz%2Cwght%5D.ttf" -o app/src/main/res/font/dm_sans_regular.ttf
+
+      - name: Setup Gradle wrapper
+        run: |
+          wget -q "https://services.gradle.org/distributions/gradle-8.4-bin.zip" -O /tmp/gradle.zip
+          unzip -q /tmp/gradle.zip -d /tmp/gradle-dist
+          export PATH=/tmp/gradle-dist/gradle-8.4/bin:$PATH
+          gradle wrapper --gradle-version 8.4
+          chmod +x gradlew
+
+      - name: Build APK
+        run: ./gradlew assembleDebug
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DealHunt-v2-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30
