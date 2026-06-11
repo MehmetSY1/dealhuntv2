@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="@color/bg_primary">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingHorizontal="20dp" android:paddingTop="48dp" android:paddingBottom="12dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="KESFET" android:fontFamily="@font/rajdhani_bold" android:textSize="24sp" android:textColor="@color/text_primary" android:layout_marginBottom="4dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Kategoriye gore oyun bul" android:textSize="12sp" android:textColor="@color/text_muted" android:layout_marginBottom="14dp"/>
+        <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:scrollbars="none">
+            <LinearLayout android:id="@+id/chipGroup" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"/>
+        </HorizontalScrollView>
+    </LinearLayout>
+    <ProgressBar android:id="@+id/progressExplore" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:visibility="gone"/>
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvExplore" android:layout_width="match_parent" android:layout_height="match_parent" android:paddingHorizontal="16dp" android:paddingVertical="8dp" android:clipToPadding="false"/>
+</LinearLayout>
