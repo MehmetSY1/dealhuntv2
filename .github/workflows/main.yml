@@ -20,12 +20,13 @@ jobs:
 
       - name: Download fonts
         run: |
-          mkdir -p app/src/main/res/font
-          curl -fL "https://github.com/google/fonts/raw/refs/heads/main/ofl/rajdhani/Rajdhani-Bold.ttf" -o app/src/main/res/font/rajdhani_bold.ttf
-          curl -fL "https://github.com/google/fonts/raw/refs/heads/main/ofl/rajdhani/Rajdhani-SemiBold.ttf" -o app/src/main/res/font/rajdhani_semibold.ttf
-          curl -fL "https://github.com/google/fonts/raw/refs/heads/main/ofl/dmsans/DMSans%5Bopsz%2Cwght%5D.ttf" -o app/src/main/res/font/dm_sans_regular.ttf
+          mkdir -p DealHuntV2/app/src/main/res/font
+          curl -fL "https://github.com/google/fonts/raw/refs/heads/main/ofl/rajdhani/Rajdhani-Bold.ttf" -o DealHuntV2/app/src/main/res/font/rajdhani_bold.ttf
+          curl -fL "https://github.com/google/fonts/raw/refs/heads/main/ofl/rajdhani/Rajdhani-SemiBold.ttf" -o DealHuntV2/app/src/main/res/font/rajdhani_semibold.ttf
+          curl -fL "https://github.com/google/fonts/raw/refs/heads/main/ofl/dmsans/DMSans%5Bopsz%2Cwght%5D.ttf" -o DealHuntV2/app/src/main/res/font/dm_sans_regular.ttf
 
       - name: Setup Gradle wrapper
+        working-directory: DealHuntV2
         run: |
           wget -q "https://services.gradle.org/distributions/gradle-8.4-bin.zip" -O /tmp/gradle.zip
           unzip -q /tmp/gradle.zip -d /tmp/gradle-dist
@@ -34,10 +35,11 @@ jobs:
           chmod +x gradlew
 
       - name: Build APK
+        working-directory: DealHuntV2
         run: ./gradlew assembleDebug
 
       - uses: actions/upload-artifact@v4
         with:
           name: DealHunt-v2-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: DealHuntV2/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 30
