@@ -25,6 +25,10 @@ jobs:
           curl -fL "https://github.com/google/fonts/raw/refs/heads/main/ofl/rajdhani/Rajdhani-SemiBold.ttf" -o DealHuntV2/app/src/main/res/font/rajdhani_semibold.ttf
           curl -fL "https://github.com/google/fonts/raw/refs/heads/main/ofl/dmsans/DMSans%5Bopsz%2Cwght%5D.ttf" -o DealHuntV2/app/src/main/res/font/dm_sans_regular.ttf
 
+      - name: Fix layout files
+        run: |
+          find DealHuntV2/app/src/main/res/layout -name "*.xml" -exec sed -i 's/android:paintFlags="[^"]*"//g' {} \;
+
       - name: Setup Gradle wrapper
         working-directory: DealHuntV2
         run: |
